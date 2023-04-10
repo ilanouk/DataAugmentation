@@ -21,3 +21,4 @@
 **Documentation**
 
 - Manuel d'installation de l'application web
+- Manuel d'utilisation pour les utilisateurs
