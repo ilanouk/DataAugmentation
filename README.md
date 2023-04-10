@@ -19,3 +19,5 @@
 - 12 semaines avec des réunions hebdomadaires, en groupe de 4 étudiants
 
 **Documentation**
+
+- Manuel
