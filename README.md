@@ -1,3 +1,5 @@
+Je tiens avant tout à remercier notre encadrant Elie El Debs qui a su être à notre écoute, et nous permettre d'avancer dans les meilleures conditions pendant toute la durée du projet grâce à ses conseils.
+
 **Contexte**
 
 - L'utilisation du Machine Learning / Deep Learning ne fait que croître de jours en jours. Cette discipline de l'informatique révolutionne aujourd'hui plusieurs secteurs d'activités comme l’aéronautique, le médical, la vision …
