@@ -1,0 +1,233 @@
+body {
+  min-width: 340px; /* Largeur minimale de la page */
+}
+
+.container-fluid {
+  width : 100%;
+
+}
+
+.premier
+{
+	background-color : transparent;
+	height : 130px;
+}
+.seconddiv
+{
+    background-image: url("https://www.iriworldwide.com/IRI/media/Library/Technology/IRISolutionsTechnolgoyHeaderMobile800x500_r15_082218.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.navbar
+{
+
+	position : relative;
+	height : 50px;
+
+}
+.btn-primary
+{
+	position : absolute;
+	right : 0
+}
+.btn-primary a
+{
+	color : white;
+	text-decoration: none;
+}
+.title
+{
+	color : white;
+	padding-top : 2%;
+    text-align : center;
+    font-size : 40px;
+}
+.box-1,.box-2
+{
+  height: 400px;
+  line-height: 1.4;
+  overflow: hidden;/*fait en sorte que tout ce qui déborde de la boite soit caché*/
+  position : relative;
+}
+
+.box-1
+{
+  background: linear-gradient(to bottom, #87CEEB, #DCDCDC);
+  border-radius : 5px;
+  border : none;
+  min-width : 320px;
+}
+.box-1 h4
+{
+    color : white;
+    text-align: center;
+    padding-left : 20px;
+    padding-right: 20px;
+}
+.box-1 h2
+{
+	color : #00BFFF;
+    text-align: center;
+    padding-left : 20px;
+    padding-right: 20px;
+}
+
+@media (min-width: 990px) {
+  .box-title {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 990px) {
+  .box-title {
+    font-size: 1.7rem;
+  }
+}
+@media (max-width: 990px) {
+  .box-titlebox1 {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 990px) {
+  .box-titleh4 {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 990px) {
+  .box-titleh4 {
+    font-size: 1.4rem;
+  }
+}
+
+.Demarrer
+{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+  width: 180px;
+  height: 45px;
+}
+
+.box-1,.box-2 input[type="checkbox"]
+{
+  font-size: 1rem;
+}
+.offcanvas
+{
+  min-width: 320px;
+}
+
+
+.box-2 {
+    background: linear-gradient(to bottom, #87CEEB, #DCDCDC);
+    border-radius : 5px;
+    border : none;
+    min-width : 320px;
+}
+.box-2 h4
+{
+    color : white;
+    text-align: center;
+    padding-left : 20px;
+    padding-right: 20px;
+}
+.box-2 h2
+{
+	color : #00BFFF;
+    text-align: center;
+    padding-left : 20px;
+    padding-right: 20px;
+}
+.Déposer
+{
+  position: absolute;
+  bottom: 0;
+  left: 35%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+  margin-right : 20px;
+  width: 120px;
+  height: 40px;
+
+}
+.historique
+{
+  position: absolute;
+  bottom: 0;
+  left: 70%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+  margin-left : 15px;
+  width: 120px;
+  height: 40px;
+}
+.offcanvas-header h2
+{
+    color : black;
+}
+
+.mb-4 {
+   margin-bottom: 1rem;
+}
+@media (max-width: 780px)
+{
+   .mb-4
+   {
+       margin-bottom: 0;
+   }
+   @media (min-width: 576px)
+   {
+      .mx-2
+      {
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+      }
+   }
+}
+
+.pied
+{
+    color : black;
+}
+
+a img {
+  transition: transform 0.3s ease-out;
+}
+
+
+a:hover img {
+  filter: grayscale(100%);
+}
+
+a:hover img {
+  opacity:1.3;
+  transform: scale(1.2);
+}
+
+
+/*.line{
+    position: absolute;
+    width: 32dvw;
+    height : 1dvh;
+    background: black;
+    border: 1.20521px solid #000000;
+    box-shadow: 0px 1.60694px 1.60694px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    left : 0dvw;
+}*/
+.line{
+position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1dvh;
+    border: 1.20521px solid #000000;
+    box-shadow: 0px 1.60694px 1.60694px rgba(0, 0, 0, 0.25);
+  background-color: black;
+}
+.custom-link {
+  color: white;
+  font-size: 1.2rem;
+}

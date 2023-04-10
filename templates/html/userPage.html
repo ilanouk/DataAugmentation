@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Data Augmentation</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/userPage.css')}}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome/all.min.css') }}">
+    <script type = "text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+    <script src = "{{ url_for('static', filename='javascript/userPage.js') }}"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        var socket;
+        socket = io.connect('http://' + document.domain + ':' + location.port);
+        socketAugmentation = io.connect('http://' + document.domain + ':' + location.port + '/home');
+        socket.on('connect', function() {
+            console.log('Connecté au serveur');
+        });
+
+        socket.on('connect_error', function(error) {
+            console.log('Erreur de connexion: ' + error);
+        });
+
+        socket.on('error', function(error) {
+            console.log('Erreur: ' + error);
+        });
+
+    </script>
+</head>
+
+<body onload = "isAnyChecked()">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="#">Navigation</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Présentation
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{{url_for('team')}}">L'Equipe</a></li>
+                        <li><a class="dropdown-item" href="{{url_for('documentation')}}">Fonctionnalités</a></li>
+                        <li><a class="dropdown-item" href="{{url_for('contact')}}">Nous contacter</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Mon compte
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{{url_for('personalSpace')}}">Mes informations personnelles</a></li>
+                        <li><a class="dropdown-item" href="{{url_for('settings')}}">Changer mon mot de passe</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link custom-link " href="{{url_for('gallery')}}">Visualiser les données augmentées <span class="sr-only">(current)</span></a>
+                </li>
+                <button type="button" class="btn btn-primary"><a href="{{ url_for('connexion', logout = 'True') }}">Se déconnecter</a></button>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+    <div class="container-fluid seconddiv min-vh-100">
+            <!--<img src="https://www.iriworldwide.com/IRI/media/Library/Technology/IRISolutionsTechnolgoyHeaderMobile800x500_r15_082218.jpg" class="img-fluid" alt = "image">-->
+        <h2 class = "title">Donnez de l'élan à vos données avec notre solution <br>de data augmentation</h2>
+        <div class="container">
+              <div class="row">
+                <div class="col-sm-12 col-md-6 offset-md-3">
+                  <div class="progress mt-5" style="display: none;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+        </div><br><br>
+        <form method="post" enctype="multipart/form-data"
+              id="augmentation-form" onsubmit="uncheckAll(); updateProgressBar();">
+              <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="box-1">
+                            <h2 class = "fw-bold box-titlebox1">Boostez les performances de votre modèle avec notre service de Data Augmentation</h2><br>
+                            <h4 class = "box-titleh4">Enclencher le processus d'augmentation
+                                des données en cliquant sur le bouton "Démarrer" puis choississez
+                                l'intensité et les traitements de votre choix</h4>
+                            <div class="d-flex justify-content-center align-items-end">
+                              <button class="btn btn-light Demarrer" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                  Démarrer</button>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" id = "offCanvasResponsive" style = "width : 30dvw;">
+                                  <div class="offcanvas-header">
+                                    <h5 class="offcanvas-title" id="offcanvasRightLabel offcanvasResponsiveLabel">Choississez les traitements à appliquer</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                  </div>
+                                  <div class="offcanvas-body row mb-4">
+                                  <div class="form-check form-switch" style="display: flex; align-items: center;">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchRotation"
+                                              value="rotation" name="options" checked >
+                                       <label class="form-check-label" for="switchRotation" style="margin-left: 1dvw;"><h7>Rotation</h7></label>
+                                       <div style="width: 15dvw; margin-left: 3dvw;margin-top: 0.5dvh;">
+                                           <input type="range" class="form-range" min="0" max="100" value="50" name ="intensity"  id="rotation-range">
+                                       </div>
+                                       <span class="input-group-text bg-light" id="intensite-rotation"
+                                             style="border: none; height: 4dvh;margin-left: 1dvw;">50%</span>
+                                   </div>
+                                   <script>
+                                   // Js permettant de désactiver les range lorsqu'on désactive le switch et de mettre
+                                   // à jour l'intensité à chaque refresh de la page
+                                        document.getElementById('switchRotation').addEventListener('change', function() {
+                                          disableRange('switchRotation','rotation-range');
+                                        });
+                                        listenerIntensity('rotation-range', 'intensite-rotation');
+                                        
+                                        if (document.getElementById('switchRotation').checked) {
+                                          const rangeRotation = document.getElementById('rotation-range');
+                                        }
+
+                                        rangeRotation.addEventListener('change', (event) => {
+                                          localStorage.setItem('rotationValue', event.target.value);
+                                        });
+
+                                        const savedValueRotation = localStorage.getItem('rotationValue');
+                                        const intensiteRotation = document.getElementById('intensite-rotation');
+
+                                        if (savedValueRotation) {
+                                          rangeRotation.value = savedValueRotation;
+                                          intensiteRotation.textContent = savedValueRotation + '%';
+                                        }
+                                    </script>
+
+                                   <div class="form-check form-switch" style="display: flex; align-items: center;">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchZoom"
+                                              value="zoom" name="options" checked >
+                                       <label class="form-check-label" for="switchZoom" style="margin-left: 1dvw;"><h7>Zoom</h7></label>
+                                       <div style="width: 15dvw; margin-left: 3dvw;margin-top: 0.5dvh;">
+                                           <input type="range" class="form-range" min="0" max="100" value="50" name ="intensity" id="zoom-range">
+                                       </div>
+                                       <span class="input-group-text bg-light" id="intensite-zoom"
+                                             style="border: none; height: 4dvh;margin-left: 1dvw;">50%</span>
+                                   </div>
+                                   <script>
+                                   document.getElementById('switchZoom').addEventListener('change', function() {
+                                                disableRange('switchZoom','zoom-range');
+                                            });
+                                   listenerIntensity('zoom-range', 'intensite-zoom')
+                                   const rangeZoom = document.getElementById('zoom-range');
+
+                                    rangeZoom.addEventListener('change', (event) => {
+                                      localStorage.setItem('zoomValue', event.target.value);
+                                    });
+
+                                    const savedValueZoom = localStorage.getItem('zoomValue');
+                                    const intensiteZoom = document.getElementById('intensite-zoom');
+
+                                    if (savedValueZoom) {
+                                      rangeZoom.value = savedValueZoom;
+                                      intensiteZoom.textContent = savedValueZoom + '%';
+                                    }
+
+                                    </script>
+
+                                   <div class="form-check form-switch" style="display: flex; align-items: center;">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchTranslation"
+                                              value="translation" name="options" checked >
+                                       <label class="form-check-label" for="switchTranslation" style="margin-left: 1dvw;"><h7>Translation</h7></label>
+                                       <div style="width: 15dvw; margin-left: 3dvw;margin-top: 0.5dvh;">
+                                           <input type="range" class="form-range" min="0" max="100" value="50" name ="intensity"  id="translation-range">
+                                       </div>
+                                       <span class="input-group-text bg-light" id="intensite-translation"
+                                             style="border: none; height: 4dvh;margin-left: 1dvw;">50%</span>
+                                   </div>
+                                   <script>
+                                   document.getElementById('switchTranslation').addEventListener('change', function() {
+                                                disableRange('switchTranslation','translation-range');
+                                            });
+                                   listenerIntensity('translation-range', 'intensite-translation')
+                                   const rangeTranslation = document.getElementById('translation-range');
+
+                                    rangeTranslation.addEventListener('change', (event) => {
+                                      localStorage.setItem('translationValue', event.target.value);
+                                    });
+
+                                    const savedValueTranslation = localStorage.getItem('translationValue');
+                                    const intensiteTranslation = document.getElementById('intensite-translation');
+
+                                    if (savedValueTranslation) {
+                                      rangeTranslation.value = savedValueTranslation;
+                                      intensiteTranslation.textContent = savedValueTranslation + '%';
+                                    }
+
+                                    </script>
+
+
+                                   <div class="form-check form-switch" style="display: flex; align-items: center;">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchNoise"
+                                              value="noise" name="options" checked >
+                                       <label class="form-check-label" for="switchNoise" style="margin-left: 1dvw;"><h7>Bruit</h7></label>
+                                       <div style="width: 15dvw; margin-left: 3dvw;margin-top: 0.5dvh;">
+                                           <input type="range" class="form-range" min="0" max="100" value="50" name ="intensity"  id="noise-range">
+                                       </div>
+                                       <span class="input-group-text bg-light" id="intensite-noise"
+                                             style="border: none; height: 4dvh;margin-left: 1dvw;">50%</span>
+                                   </div>
+                                   <script>
+                                        document.getElementById('switchNoise').addEventListener('change', function() {
+                                            disableRange('switchNoise','noise-range');
+                                        });
+                                        listenerIntensity('noise-range', 'intensite-noise')
+
+                                        const rangeNoise = document.getElementById('noise-range');
+                                        rangeNoise.addEventListener('change', (event) => {
+                                          localStorage.setItem('noiseValue', event.target.value);
+                                        });
+
+                                        const savedValueNoise = localStorage.getItem('noiseValue');
+                                        const intensiteNoise = document.getElementById('intensite-noise');
+
+                                        if (savedValueNoise) {
+                                          rangeNoise.value = savedValueNoise;
+                                          intensiteNoise.textContent = savedValueNoise + '%';
+                                        }
+
+                                    </script>
+
+                                   <div class="form-check form-switch" style="display: flex; align-items: center;">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchBlur" value="blur" name="options" checked>
+                                       <label class="form-check-label" for="switchBlur" style="margin-left: 1dvw;"><h7>Flou</h7></label>
+                                       <div style="width: 15dvw; margin-left: 3dvw;margin-top: 0.5dvh;">
+                                           <input type="range" class="form-range" min="0" max="100" value="50" name ="intensity"  id="blur-range">
+                                       </div>
+                                       <span class="input-group-text bg-light" id="intensite-blur" style="border: none; height: 4dvh;margin-left: 1dvw;">50%</span>
+                                   </div>
+                                   <script>
+
+                                        document.getElementById('switchBlur').addEventListener('change', function() {
+                                            disableRange('switchBlur', 'blur-range');
+                                        });
+                                        listenerIntensity('blur-range', 'intensite-blur');
+
+                                        const rangeBlur = document.getElementById('blur-range');
+                                        rangeBlur.addEventListener('change', (event) => {
+                                          localStorage.setItem('blurValue', event.target.value);
+                                        });
+
+                                        const savedValueBlur = localStorage.getItem('blurValue');
+                                        const intensiteBlur = document.getElementById('intensite-blur');
+
+                                        if (savedValueBlur) {
+                                          rangeBlur.value = savedValueBlur;
+                                          intensiteBlur.textContent = savedValueBlur + '%';
+                                        }
+
+                                    </script>
+
+
+                                   <div class="form-check form-switch" style="display: flex; align-items: center;">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchDistortion" value="distortion" name="options" checked>
+                                       <label class="form-check-label" for="switchDistortion" style="margin-left: 1dvw;"><h7>Distortion</h7></label>
+                                       <div style="width: 15dvw; margin-left: 3dvw;margin-top: 0.5dvh;">
+                                           <input type="range" class="form-range" min="0" max="100" value="50" name ="intensity" id="distortion-range">
+                                       </div>
+                                       <span class="input-group-text bg-light" id="intensite-distortion" style="border: none; height: 4dvh;margin-left: 1dvw;">50%</span>
+                                   </div>
+
+                                   <script>
+                                        document.getElementById('switchDistortion').addEventListener('change', function() {
+                                            disableRange('switchDistortion', 'distortion-range');
+                                        });
+                                        listenerIntensity('distortion-range', 'intensite-distortion');
+                                        const rangeDistortion = document.getElementById('distortion-range');
+
+                                        rangeDistortion.addEventListener('change', (event) => {
+                                          localStorage.setItem('distortionValue', event.target.value);
+                                        });
+
+                                        const savedValueDistortion = localStorage.getItem('distortionValue');
+                                        const intensiteDistortion = document.getElementById('intensite-distortion');
+
+                                        if (savedValueDistortion) {
+                                          rangeDistortion.value = savedValueDistortion;
+                                          intensiteDistortion.textContent = savedValueDistortion + '%';
+                                        }
+
+                                    </script>
+
+
+                                   <div class="form-check form-switch" style="display: flex; align-items: center;">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchBrightness" value="brightness" name="options" checked>
+                                       <label class="form-check-label" for="switchBrightness" style="margin-left: 1dvw;"><h7>Luminosité</h7></label>
+                                       <div style="width: 15dvw; margin-left: 3dvw;margin-top: 0.5dvh;">
+                                           <input type="range" class="form-range" min="0" max="100" value="50" name ="intensity"  id="brightness-range">
+                                       </div>
+                                       <span class="input-group-text bg-light" id="intensite-brightness" style="border: none; height: 4dvh;margin-left: 1dvw;">50%</span>
+                                   </div>
+
+                                   <script>
+                                        document.getElementById('switchBrightness').addEventListener('change', function() {
+                                            disableRange('switchBrightness', 'brightness-range');
+                                        });
+                                        listenerIntensity('brightness-range', 'intensite-brightness');
+                                        const rangeBrightness = document.getElementById('brightness-range');
+
+                                        rangeBrightness.addEventListener('change', (event) => {
+                                          localStorage.setItem('brightnessValue', event.target.value);
+                                        });
+
+                                        const savedValueBrightness = localStorage.getItem('brightnessValue');
+                                        const intensiteBrightness = document.getElementById('intensite-brightness');
+
+                                        if (savedValueBrightness) {
+                                          rangeBrightness.value = savedValueBrightness;
+                                          intensiteBrightness.textContent = savedValueBrightness + '%';
+                                        }
+
+                                    </script>
+
+
+                                   <div class="form-check form-switch" style="display: flex; align-items: center;">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchContrast" value="contrast" name="options" checked>
+                                       <label class="form-check-label" for="switchContrast" style="margin-left: 1dvw;"><h7>Contraste</h7></label>
+                                       <div style="width: 15dvw; margin-left: 3dvw;margin-top: 0.5dvh;">
+                                           <input type="range" class="form-range" min="0" max="100" value="50" name ="intensity"  id="contrast-range">
+                                       </div>
+                                       <span class="input-group-text bg-light" id="intensite-contrast"
+                                             style="border: none; height: 4dvh;margin-left: 1dvw;">50%</span>
+                                   </div>
+                                   <script>
+                                      document.getElementById('switchContrast').addEventListener('change', function() {
+                                        disableRange('switchContrast', 'contrast-range');
+                                      });
+                                      listenerIntensity('contrast-range', 'intensite-contrast');
+                                      const rangeContrast = document.getElementById('contrast-range');
+
+                                        rangeContrast.addEventListener('change', (event) => {
+                                          localStorage.setItem('contrastValue', event.target.value);
+                                        });
+
+                                        const savedValueContrast = localStorage.getItem('contrastValue');
+                                        const intensiteContrast = document.getElementById('intensite-contrast');
+
+                                        if (savedValueContrast) {
+                                          rangeContrast.value = savedValueContrast;
+                                          intensiteContrast.textContent = savedValueContrast + '%';
+                                        }
+
+                                    </script>
+
+                                   <div class="form-check form-switch" style="display: flex; align-items: center;">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchDarkness" value="darkness" name="options" checked>
+                                       <label class="form-check-label" for="switchDarkness" style="margin-left: 1dvw;"><h7>Obscurité</h7></label>
+                                       <div style="width: 15dvw; margin-left: 3dvw;margin-top: 0.5dvh;">
+                                           <input type="range" class="form-range" min="0" max="100" value="50" name ="intensity"  id="darkness-range">
+                                       </div>
+                                       <span class="input-group-text bg-light" id="intensite-darkness"
+                                             style="border: none; height: 4dvh;margin-left: 1dvw;">50%</span>
+                                   </div>
+                                   <script>
+                                      document.getElementById('switchDarkness').addEventListener('change', function() {
+                                        disableRange('switchDarkness', 'darkness-range');
+                                      });
+                                      listenerIntensity('darkness-range', 'intensite-darkness');
+                                        const rangeDarkness = document.getElementById('darkness-range');
+
+                                            rangeDarkness.addEventListener('change', (event) => {
+                                            localStorage.setItem('darknessValue', event.target.value);
+                                            });
+
+                                            const savedValueDarkness = localStorage.getItem('darknessValue');
+                                            const intensiteDarkness = document.getElementById('intensite-darkness');
+
+                                            if (savedValueDarkness) {
+                                            rangeDarkness.value = savedValueDarkness;
+                                            intensiteDarkness.textContent = savedValueDarkness + '%';
+                                            }
+
+                                    </script>
+
+
+                                   <div class="form-check form-switch">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchFlippedX" value = "flippedX" name = "options" checked>
+                                       <label class="form-check-label" for="switchFlippedX"><h7>Inversion axe X</h7></label>
+                                   </div>
+
+                                   <div class="form-check form-switch">
+                                       <input class="form-check-input" type="checkbox" role="switch" id="switchFlippedY" value = "flippedY" name = "options" checked>
+                                       <label class="form-check-label" for="switchFlippedY"><h7>Inversion axe Y</h7></label>
+                                   </div>
+                                      <button type="submit" class="btn btn-warning btn-augment"
+                                        id ="btn-augment" onclick="augmentation();"> Augmenter </button>
+                                  </div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="box-2">
+
+                          <h2 class = "fw-bold box-title">Déposer vos données et choississez vos données à augmenter</h2><br><br>
+                          <h4 class = "box-titleh4">Vous pouvez uploader vos données en cliquant sur le bouton "Déposer" et consulter l'historique
+                          de vos dépôts en cliquant sur "Mes choix"</h4>
+                          <div class="d-flex justify-content-center align-items-end">
+                              <a href="{{url_for('upload')}}" class="btn btn-light Déposer">Déposer</a>
+                              <button class="btn btn-light historique" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasStart"
+                              aria-controls="offcanvasStart" >Mes choix</button>
+                          </div>
+                          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasStart" aria-labelledby="offcanvasStartLabel" style = "width : 32dvw;">
+
+                            <div class="offcanvas-header">
+                              <h2 class="offcanvas-title" id="offcanvasStartLabel">Historique de mes dépôts</h2>
+                              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                          </div>
+
+                              <div class="offcanvas-body">
+                                  <div class="row mb-4">
+                                  {% for upload in uploads %}
+                                  <div class="form-check row align-items-center">
+                                      <div class="col">
+                                          <input class="form-check-input" type="checkbox" name="to_augment" value="{{ upload['name'] }}"
+                                                 id="check_{{ loop.index }}" onclick="isAnyChecked()">
+                                          <label class="form-check-label" for="check_{{ loop.index }}" style="color: black; margin-right: 10px;">
+                                              {{ upload['name'] }}
+                                          </label>
+                                          {% if upload["name"].endswith('.jpg') or upload["name"].endswith('.jpeg') or upload["name"].endswith('.png')%}
+                                          <i class="fas fa-file"></i>
+                                          {% else %}
+                                          <i class="fas fa-folder"></i>
+                                          {% endif %}
+
+                                          <label class="form-check-label" for="check_{{ loop.index }}" style="color: black; margin-left: 10px;">
+                                              {{ upload["date"].strftime('%Y-%m-%d, %H:%M:%S') }}
+                                          </label>
+
+                                          {% if upload["name"].endswith('.jpg') or upload["name"].endswith('.jpeg') or upload["name"].endswith('.png') %}
+
+                                          <a href="{{url_for('delete_file', filename=upload['name'], redirect_page='home')}}">
+                                              <img src="{{ url_for('static', filename='Media/deleteCross.svg') }}" alt="Supprimer"
+                                                   style="width: 9%; height: 4%; padding-left : 1dvw ">
+                                          </a>
+
+                                          {% else %}
+                                          <a href="{{url_for('delete_folder', foldername=upload['name'], redirect_page='home')}}">
+                                              <img src="{{ url_for('static', filename='Media/deleteCross.svg') }}" alt="Supprimer"
+                                                   style="width: 9%; height: 4%; padding-left : 1dvw; ">
+                                          </a>
+                                          {% endif %}
+                                      </div>
+
+                                  </div>
+                                  {% endfor %}
+                                  <button type="button" class="btn btn-warning" data-bs-dismiss="offcanvas"
+                                          aria-label="Close" style ="margin-top : 2dvh;">Choisir</button>
+                                  </div>
+                                  <span class ="line"></span>
+                                  <br><br>
+                              </div>
+
+                              <div class="offcanvas-header">
+
+                              <h2 class="offcanvas-title" id="offcanvasStartLabel2">Mes données augmentés</h2>
+                          </div>
+                              <div class="offcanvas-body">
+                                  <div class="row mb-4">
+                                      {% for increase in increased %}
+                                      <div class="form-check row align-items-center">
+                                          <div class="col">
+                                              <label class="form-check-label" for="check_{{ loop.index }}" style="color: black; margin-right: 10px;">
+                                                  {{ increase['name'] }}
+                                              </label>
+                                              {% if increase["name"].endswith('.jpg') or increase["name"].endswith('.jpeg') or increase["name"].endswith('.png')%}
+                                              <i class="fas fa-file"></i>
+                                              {% else %}
+                                              <i class="fas fa-folder"></i>
+                                              {% endif %}
+
+                                              <label class="form-check-label" for="check_{{ loop.index }}" style="color: black; margin-left: 10px;">
+                                                  {{ increase["date"].strftime('%Y-%m-%d, %H:%M:%S') }}
+                                              </label>
+
+                                              <a href="{{ url_for('download_increased', foldername=increase['name']) }}">
+                                                  <img src="{{ url_for('static', filename='Media/downloadlogo.svg') }}" alt="Download"
+                                                       style = "position : absolute ; margin-left : 4dvw; width:5.5%;">
+                                              </a>
+
+                                              {% if increase["name"].endswith('.jpg') or increase["name"].endswith('.jpeg') or increase["name"].endswith('.png') %}
+
+                                              <a href="{{url_for('delete_increased_file', filename=increase['name'])}}">
+                                                  <img src="{{ url_for('static', filename='Media/deleteCross.svg') }}" alt="Supprimer"
+                                                       style="width: 9%; height: 4%; padding-left : 1dvw ">
+                                              </a>
+
+                                              {% else %}
+                                              <a href="{{url_for('delete_increased_folder', foldername=increase['name'])}}">
+                                                  <img src="{{ url_for('static', filename='Media/deleteCross.svg') }}" alt="Supprimer"
+                                                       style="width: 9%; height: 4%; padding-left : 1dvw; ">
+                                              </a>
+                                              {% endif %}
+                                          </div>
+                                      </div>
+                                      {% endfor %}
+                                  </div>
+                              </div>
+
+                      </div>
+                  </div>
+                    </div>
+              </div>
+          </div>
+        </form><br><br>
+
+
+ </div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+       <footer class="bg-dark-subtle text-white ">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <p class = "pied">&copy; 2023 - Tous droits réservés</p>
+              </div>
+              <div class="col-md-6">
+                <ul class="list-unstyled">
+                  <li><a href="#">Mentions légales</a></li>
+                  <li><a href="#">Politique de confidentialité</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+</body>
+
+</html>

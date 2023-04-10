@@ -1,0 +1,112 @@
+input[type="file"] {
+  cursor: pointer;
+}
+body {
+        background-color: #eae8e0;
+        font-family: Nunito_Bold;
+        min-height : 100%;
+        min-width : 100%;
+    }
+
+label {
+
+        font-family: Nunito_ExtraBold;
+    }
+
+h1 {
+        font-family: Nunito_Black;
+    }
+
+h2 {
+        font-family: Nunito_Black;
+    }
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    margin-top: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.form-group label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0062cc;
+    border-color: #0062cc;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+.btnT {
+    font-size: 24px;
+
+    overflow: hidden;
+    border: 2px solid #343a40;
+    background-color: transparent;
+    color: #343a40;
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+}
+
+.btnT:hover {
+    transform: scale(1.1);
+    background-color: #343a40;
+    border-color: #343a40;
+    color: #fff;
+}
+
+.btnT::before {
+    content: "";
+
+    transform: translate(-50%, -50%) scale(3);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+
+a img {
+  position: absolute;
+  left: 26vw;
+  transition: transform 0.3s ease-out;
+}
+
+a:hover img {
+  box-shadow: 0 0 6px red;
+}
+a:hover img {
+  filter: grayscale(100%);
+}
+
+a:hover img {
+  opacity:1.3;
+  transform: scale(1.2);
+}

@@ -1,0 +1,174 @@
+
+@media screen and (max-width: 768px) {
+.textForm2{
+    font-family: Arial;
+	font-size : 14px;
+	font-weight: 400;
+	position : relative;
+}
+}
+.container-form
+{
+    margin-left : 80%;
+}
+
+.form1 {
+  margin-top: 30px;
+}
+.form2 {
+  margin-top: 20px;
+}
+.form3 {
+  margin-top: 20px;
+}
+
+.textInscrire{
+    font-family: Nunito_ExtraBold;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 26.1215px;
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    opacity: 0.8;
+}
+
+
+
+.textForm{
+    font-family: Nunito_ExtraBold;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16.1215px;
+    }
+
+body {
+font-family: 'Nunito', sans-serif;
+background-image: url("../../static/Media/signUpPage.png");
+background-repeat: no-repeat;
+  background-size: cover;
+min-height: 100vh;
+width : 100vw;
+overflow-x: auto;
+overflow-y : hidden;
+}
+
+.textForm2 {
+font-size: 14px;
+}
+
+.formSignUp {
+
+
+height: 100vh;
+width : 40vw;
+transform: translateX(-50%);
+background: linear-gradient(to bottom, #F0F8FF, #E6E6E6);
+margin-bottom: 500px;
+border-left: 5px solid black;
+border-radius: 8px;
+padding: 20px;
+box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.2);
+overflow-y : auto;
+min-width :100px;
+
+}
+
+.textInscrire {
+font-size: 36px;
+font-weight: 800;
+border: 2px solid black;
+border-radius: 8px;
+background-color: black;
+color: white;
+padding: 10px 20px;
+box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+opacity: 0.8;
+
+}
+}
+
+.textForm {
+font-size: 16px;
+font-weight: 800;
+}
+
+.form-group {
+position: relative;
+}
+
+.form-control:focus {
+border-color: #87CEFA;
+box-shadow: none;
+}
+
+.form-control:invalid {
+border-color: #dc3545;
+}
+
+.form-control:invalid:focus {
+border-color: #dc3545;
+box-shadow: none;
+}
+
+.form-control:valid {
+border-color: #3cba54;
+}
+
+.form-control:valid:focus {
+border-color: #3cba54;
+box-shadow: none;
+}
+
+.checkbox input[type="checkbox"]:checked + label:before {
+content: "\2714";
+color: #3cba54;
+}
+
+.checkbox input[type="checkbox"]:focus + label:before {
+outline: 2px solid #87CEFA;
+}
+
+select:focus {
+outline: 2px solid #87CEFA;
+}
+
+input[type="submit"] {
+margin-top: 20px;
+background-color: #3cba54;
+border: none;
+color: white;
+padding: 10px 20px;
+border-radius: 8px;
+font-size: 16px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+background-color: #2e8b57;
+}
+
+/* CSS pour rendre les messages d'erreur plus visibles */
+p.error {
+color: #dc3545;
+font-size: 14px;
+}
+@media screen and (max-width : 606px)
+{
+    h7
+    {
+        font-size : 12px;
+    }
+}
+@media screen and (max-width : 606px)
+{
+    h1
+    {
+        font-size : 17px;
+    }
+}
+

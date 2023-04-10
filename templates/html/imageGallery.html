@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes images augmentées</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src = "{{ url_for('static', filename='javascript/imageGallery.js') }}"></script>
+
+  <style>
+    .image-container img {
+      transition: 0.3s;
+    }
+
+    .image-container:hover img {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+<header class="bg-dark text-white text-center py-3">
+  <h1>Image Gallery</h1>
+</header>
+
+<a href= "{{ url_for('home')}}">
+    <- Retour à la page précédente
+</a>
+
+<div style="padding-top: 12vh;">
+
+  <div class="container">
+    <div class="row">
+      {% for folder, images in content.items() %}
+      <div class="col-12">
+        <h3>{{ folder}}</h3>
+      </div>
+      {% for image in images %}
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4">
+        <div class="image-container position-relative overflow-hidden">
+          <a href="#" data-toggle="modal" data-target="#image-modal">
+            <img src="{{ url_for('get_increased_image',foldername = folder ,filename=image) }}" alt="{{ image }}" class="img-fluid w-100 lazy" style="object-fit: cover; height: 150px;">
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="image-modal" tabindex="-1" role="dialog" aria-labelledby="image-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img src="" alt="" class="img-fluid" id="modal-image">
+        <p id="image-name" class="text-center mt-2"></p> <!-- Ajout pour afficher le nom du fichier -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+      document.querySelectorAll('.image-container a').forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        const imageElement = link.querySelector('img');
+        const modalImageElement = document.getElementById('modal-image');
+        const imageNameElement = document.getElementById('image-name');
+        modalImageElement.src = imageElement.src;
+        modalImageElement.alt = imageElement.alt;
+        imageNameElement.textContent = imageElement.alt;
+
+          document.addEventListener("DOMContentLoaded", function() {
+    let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+    if ("IntersectionObserver" in window) {
+      let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            let lazyImage = entry.target;
+            lazyImage.src = lazyImage.dataset.src;
+            lazyImage.classList.remove("lazy");
+            lazyImageObserver.unobserve(lazyImage);
+          }
+        });
+      });
+
+      lazyImages.forEach(function(lazyImage) {
+        lazyImageObserver.observe(lazyImage);
+      });
+    } else {
+      // Fallback for browsers that do not support IntersectionObserver
+      lazyImages.forEach(function(lazyImage) {
+        lazyImage.src = lazyImage.dataset.src;
+        lazyImage.classList.remove("lazy");
+      });
+    }
+  });
+      });
+    });
+</script>
+</body>
+</html>

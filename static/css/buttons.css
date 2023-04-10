@@ -1,0 +1,135 @@
+
+.button_Login {
+    font-family: Nunito_ExtraBold;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 26.1215px;
+    line-height: 100%;
+    color: #EFECEE;
+    box-sizing: border-box;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 9.03324px 18.0665px;
+    gap: 5.65px;
+    position: relative;
+    top: 13px;
+    left: 1285px;
+    width: 120.49px;
+    height: 53.86px;
+    background: #000000;
+    border: 1.69373px solid #050505;
+    box-shadow: 0px 1.69373px 4.51662px rgba(136, 144, 194, 0.25), 0px 3.95204px 11.8561px rgba(37, 44, 97, 0.2);
+    border-radius: 50.812px;
+    transition: all 0.3s ease-in-out;
+}
+
+.button_Login:hover {
+  background: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.button_Sinscrire {
+    width: 85px;
+    height: 20px;
+
+    font-family: Nunito_Bold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20.0868px;
+    line-height: 100%;
+
+
+    color: #FFFFFF;
+
+    text-shadow: 0px 3.21389px 1.60694px rgba(0, 0, 0, 0.25);
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10.4451px 16.4712px;
+    gap: 4.02px;
+
+    position: absolute;
+    top : 550px;
+    left : 110px;
+    width: 140.18px;
+    height: 56.23px;
+
+    background: black;
+    border: 0.803472px solid #000000;
+    box-shadow: 0px 2.41042px 1.60694px rgba(136, 144, 194, 0.2);
+    border-radius: 20.0868px;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.button_Sinscrire:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+  transform: scale(1.1);
+  box-shadow: 0px 2.41042px 1.60694px rgba(136, 144, 194, 0.5);
+    background: linear-gradient(to right, black, green);
+  background-size: 200% auto;
+  transition: all 0.3s ease-in-out;
+}
+
+/* source : https://www.sliderrevolution.com/resources/css-button-hover-effects/
+Cool Beans Buttons 60fps*/
+
+.button_Commencer {
+  cursor: pointer;
+border: 3px solid black;
+border-radius: 3rem;
+color: black;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15.0868px;
+    line-height: 100%;
+overflow: hidden;
+padding: 1rem 2rem;
+position: relative;
+
+text-decoration: none;
+transition: .2s transform ease-in-out;
+will-change: transform;
+z-index: 0;
+background-color: transparent;
+}
+
+.button_Commencer::after {
+background-color: green;
+border-radius: 3rem;
+content: '';
+display: block;
+height: 100%;
+width: 100%;
+position: absolute;
+left: 0;
+top: 0;
+transform: translate(-100%, 0) rotate(10deg);
+transform-origin: top left;
+transition: .2s transform ease-out;
+will-change: transform;
+z-index: -1;
+}
+
+.button_Commencer:hover::after {
+transform: translate(0, 0);
+}
+
+.button_Commencer:hover {
+border: 2px solid transparent;
+color: indigo;
+transform: scale(1.05);
+will-change: transform;
+}

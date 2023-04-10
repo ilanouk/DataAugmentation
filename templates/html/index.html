@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page d'accueil</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+
+    <style>
+        body {
+            background-image: url("../../static/Media/landpage.gif");
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 240vh;
+            margin : 0;
+            padding : 0;
+            min-width : 540px;
+            min-height: 500px; /* Hauteur minimale de la page */
+            overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
+        }
+    </style>
+    <title>Outil D'Augmentation de la Donnée</title>
+</head>
+<body>
+    <div>
+        <img src="../../static/Media/logoApp.png" alt="logo App" style = "width:126.55px; height:101.64px;position:absolute;left:18px; top:8px;">
+        <a href="{{ url_for('home') }}">
+            <button class="textMenu" style="width: 150px; position: absolute; left: 150px; top: 3px;"> Dashboard</button>
+        </a>
+        <a href="{{ url_for('upload') }}">
+        <button class = "textMenu" style = "width: 170px;position:absolute; left:305px; top:3px;" > Upload Files </button>
+        </a>
+        <a href="{{ url_for('documentation') }}">
+        <button class = "textMenu" style = "width: 180px;position:absolute; left:490px; top:3px;" > Documentation</button>
+        </a>
+        <a href="{{ url_for('team') }}">
+        <button class = "textMenu" style = "position:absolute; left:1110px; top:3px;" > Team</button>
+        </a>
+        <a href="{{ url_for('contact') }}">
+            <button class = "textMenu" style = "position:absolute; left:670px; top:3px;" > Contact</button>
+        </a>
+
+    </div>
+    <span class="Line1"></span>
+    <span class="Line1" style="left : 1130px;width: 153.06px"></span>
+    <span class="Line_Vertical" style="top : 990px;left : 430px;width: 190.06px;"></span>
+    <span class="Line_Vertical" style="top : 990px;left : 830px;width: 190.06px;"></span>
+    <span class="Line_Vertical" style="top : 1330px;left : 320px;width: 330px;"></span>
+    <a href="{{ url_for('connexion') }}">
+            <button class="button_Login">Log In</button>
+    </a>
+    <div>
+      <a href="{{ url_for('inscription') }}">
+        <button class="button_Sinscrire" style="position: relative; left: 10vw; top: 71vh;">S'inscrire</button>
+      </a>
+      <a href="{{ url_for('connexion') }}">
+        <button class="button_Commencer" style="position: relative; left: calc(10vw + 5vw); top: 71vh; margin-left: 10px;">Se connecter</button>
+      </a>
+    </div>
+
+    <div>
+        <span class="Line2"></span>
+                <img src="../static/Media/logoDescartes.png" alt="logo Descartes" style = "width:264.74px; height:100.03px;position:absolute;left:550px; top:1620px;">
+        <span class="heading_text">Amplifiez vos données, décuplez vos performances.</span>
+        <span class="heading">www.DataFlowAI.com</span>
+        <span class="copyright">DataFlowAI</span>
+    </div>
+    	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+</body>
+</html>

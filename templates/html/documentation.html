@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Fonctionnalités</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/PageDescriptionFonct.css')}}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+	<div class = "container-fluid depot">
+		<h1>Dépot du dataset</h1>
+		<pre>Dans cette section, vous pourrez déposer vos données afin que nous les augmentons à votre place.
+Si vous n'avez pas de jeu de données, voici un site en proposant : <a href="https://www.kaggle.com/datasets/pavansanagapati/images-dataset" target = 'BLANK'>Kaggle</a>
+Pour déposer vos données, il suffit de cliquer sur le bouton "Choisir un fichier".
+Une fois déposé, divers outils d'augmentation de la donnée (décrit dans les rubriques ci-dessous)
+vous seront proposés afin d'appliquer le traitement que vous aurez choisi.
+Cliquez sur "Valider" pour enclencher le processus.
+Une fois ce processus terminé, vos images augmentés seront à votre disposition et téléchargeables.
+		</pre>
+		<img src="{{url_for('static',filename = 'Media/ImageDepot.png')}}" alt = "Image" class = "image1">
+	</div>
+	<div class = "container-fluid traitement">
+		<h1>Type de traitement</h1>
+		<div class="container-fluid luminosite">
+			<ul>
+				<li>
+					<p class = "lumi">Luminosité</p>
+				</li>
+			</ul>
+			<pre>
+La luminosité d'une image se réfère à la quantité de lumière qui est présente dans cette image.
+Une image plus lumineuse aura une apparence plus claire et plus blanche,
+tandis qu'une image moins lumineuse aura une apparence plus sombre et plus grise.
+La modification de la luminosité permet d'augmenter artificiellement la quantité et
+la diversité des données d'entraînement
+en modifiant la luminosité des images. Le modèle sera ainsi entraînné à reconnaître
+des images avec une luminosité différente etne pas seulement se focaliser sur un éclairage précis.
+
+			</pre>
+			<img src="https://us.123rf.com/450wm/stegarau/stegarau1711/stegarau171100041/90167949-avant-et-apr%C3%A8s-l-exemple-du-processus-de-retouche-photo-correction-des-couleurs-luminosit%C3%A9-et-satura.jpg" alt = "image2" class = "image2">
+		</div>
+		<div class="container-fluid contraste">
+			<ul>
+				<li>
+					<p class = "cont">Contraste</p>
+				</li>
+			</ul>
+			<pre>
+Le contraste d'une image se réfère à la différence entre les zones claires et sombres de l'image.
+Une image avec un contraste élevé aura des zones très claires et très sombres,
+tandis qu'une image avec un contraste faible aura des zones plus proches de la même luminosité.
+La modification du contraste est une technique couramment utilisée pour augmenter les données dans le
+domaine du Machine Learning. Son but est de réduire de l'influence de l'éclairage et ainsi
+le modèle apprend à reconnaître des images avec un éclairage différent, le rendant plus performant.
+			</pre>
+			<img src="http://arpenterlechemin.com/wp-content/uploads/2019/02/retouches-photos-de-base-photoshop-lightroom-paint-contraste-saturation-exposition-reglages-luminosite-blog-voyage-arpenter-le-chemin-1.jpg" alt = "image3" class = "image3">
+		</div>
+		<div class="container-fluid rotation">
+			<ul>
+				<li>
+					<p class = "rot">Rotation</p>
+				</li>
+			</ul>
+			<pre>
+La rotation d'une image consiste à changer l'orientation de l'image par rapport à son axe.
+L'augmentation de données par rotation à pour but de faire pivoter les images dans un sens ou dans l'autre,
+généralement de quelques degrés, afin de créer de nouvelles images à partir des images originales.
+En faisant pivoter les images de manière aléatoire, le modèle est exposé à une plus grande variété de données.
+Lorsqu'une image est tournée, elle peut produire une nouvelle image qui n'est pas présente
+dans le jeu de données d'origine.En outre, la rotation permet de créer des variations dans la perspective de l'image,
+ce qui peut aider le modèle à mieux généraliser en étant plus robuste aux variations de perspective.
+			</pre>
+			<img src="http://mathematiques.ac-dijon.fr/indunet3/ressources/liaisons_cm_6/verdun/2008/images/symetrie_3.gif" alt = "image4" class = "image4">
+		</div>
+		<div class="container-fluid bruit">
+			<ul>
+				<li>
+					<p class = "bru">Ajout de bruit</p>
+				</li>
+			</ul>
+			<pre>
+En photographie, le bruit est un des effets les plus indésirables, mais également un des plus fréquents.
+Il se caractérise par des grains plus ou moins nombreux sur l’image, qui réduisent la qualité,
+le contraste et peuvent rendre vos photos inexploitables. Pour avoir un jeu de donné robuste,
+il s'avère intéressant d'avoir plusieurs type d'images de qualités variées pour que le modèle ne s'enrichisse pas
+seulement de données d'une qualité fixe mais plutôt qu'il apprenne avec des données de qualité diverse.
+En effet, les images bruitées peuvent simuler des situations plus réalistes, où les données peuvent être dégradée
+ou corrompues,par exemple dans des situations de mauvaise qualité d'éclairage ou de capteurs défectueux.
+			</pre>
+			<img src="https://help.apple.com/assets/616F5622BAB36D3B5D3630C2/616F5624BAB36D3B5D3630D1/fr_FR/9d4be646a120fa127d52a9c61d95656f.png" alt = "image5" class = "image5">
+		</div>
+		<div class="container-fluid extraction">
+			<ul>
+				<li>
+					<p class = "ext">Extraction d'une partie de l'image</p>
+				</li>
+			</ul>
+			<pre>
+L'extraction ou le zoom sur une partie de l'image permet d'avoir une nouvelle image correspondant à une
+zone spécifique de l'image de départ.
+Modifier le zoom est une autre technique courante d'augmentation de données dans le domaine de l'apprentissage automatique.
+Cette technique consiste à agrandir ou à réduire les images d'entraînement pour créer de nouvelles images avec
+des caractéristiques différentes des images originales.
+Les images zoomées peuvent simuler des situations où l'objet est plus proche ou plus éloigné de la caméra,
+ce qui peut être utile pour des tâches de reconnaissance d'objets par exemple.
+Le but est d'entraîner le modèle à reconnaître ces images mais sous des échelles différentes.
+			</pre>
+			<img src="https://imgv3.fotor.com/images/videoImage/zoom-a-females-face-in-with-fotor-image-zoom-tool.png" alt = "image6" class = "image6">
+		</div>
+	</div>
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>

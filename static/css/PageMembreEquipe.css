@@ -1,0 +1,36 @@
+/*body
+{
+  background-image: linear-gradient(to right, #f00, #00f);
+}*/
+h1 p
+{
+  background-image: linear-gradient(to right, #f00, #00f);
+  font-size : 50px;
+  text-align: center;
+  line-height: 3;
+
+}
+/*.i2
+{
+  position: relative;
+  left : 250px;
+}
+.i3
+{
+  position : relative;
+  left : 500px;
+}*/
+
+.image-container {
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 75%;
+}
+
+img {
+  display: block;
+  width: 75%;
+  border: 5px solid #333;
+  border-radius: 20%;
+}

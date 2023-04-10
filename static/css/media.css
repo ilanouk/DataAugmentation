@@ -1,0 +1,18 @@
+.logoApp{
+position: absolute;
+width: 126.55px;
+height: 101.64px;
+
+background: url("static/Media/logoApp.png");
+mix-blend-mode: normal;
+filter: drop-shadow(6.02604px 6.02604px 1.60694px rgba(0, 0, 0, 0.3));
+}
+
+.logoDescartes{
+position: absolute;
+width: 264.74px;
+height: 100.03px;
+
+background: url("static/Media/logoDescartes.png");
+
+}

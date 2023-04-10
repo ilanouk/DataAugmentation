@@ -1,0 +1,124 @@
+.textMenu {
+    position: relative;
+    width: 161px;
+    height: 30px;
+    border: none;
+    font-family: Nunito_ExtraBold;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 22.0955px;
+    line-height: 30px;
+    text-align: center;
+    background-color: transparent;
+    color: #000000;
+    text-shadow: 0px 3.21389px 1.60694px rgba(0, 0, 0, 0.25);
+    transition: 0.5s;
+    margin: 0.8em;
+    cursor: pointer;
+}
+/*source : https://freefrontend.com/css-button-hover-effects/
+author : Comehope , September 3, 2018 */
+
+.textMenu::before,
+.textMenu::after {
+    content: '';
+    position: absolute;
+    width: 0.6em;
+    height: 0.6em;
+    background-color: gainsboro;
+    border-radius: 50%;
+    transition: 0.5s cubic-bezier(0.5, -0.5, 0.25, 1.5);
+    top: calc(50% - 0.6em / 2);
+
+}
+
+.heading {
+    position: absolute;
+    left: 50px;
+    top: 1630px;
+    width: 201px;
+    height: 12px;
+    font-family: Nunito_Bold;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 8.03472px;
+    line-height: 11px;
+
+    font-feature-settings: 'liga' off;
+    color: #111827;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+.heading_text{
+    position: absolute;
+    left: 50px;
+    top: 1620px;
+    width: 201px;
+    height: 12px;
+    font-family: Nunito_ExtraBold;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 8.03472px;
+    line-height: 11px;
+    /* identical to box height, or 140% */
+
+    font-feature-settings: 'liga' off;
+
+    /* Neutral/900 */
+
+    color: #111827;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.copyright{
+position: absolute;
+left: 50px;
+top: 1650px;
+width: 68px;
+height: 12px;
+font-family: Nunito_Bold;
+font-style: normal;
+font-weight: 500;
+font-size: 8.03472px;
+line-height: 11px;
+
+color: #6B7280;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 2;
+flex-grow: 0;
+}
+
+.textMenu::before {left: 0; z-index: -1;}
+.textMenu::after {right: 0; z-index: -2;}
+
+.textMenu:hover {
+    color: white;
+}
+
+.textMenu:hover::before,
+.textMenu:hover::after {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    background-color: green;
+}
+
+.textMenu:hover::before {
+    top: 0;
+}
+
+.textMenu:hover::after {
+    right: -0.4em;
+    filter: brightness(0.8);
+}
