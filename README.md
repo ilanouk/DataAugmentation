@@ -20,4 +20,4 @@
 
 **Documentation**
 
-- Manuel
+- Manuel d'installation de l'application web
