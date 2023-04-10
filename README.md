@@ -13,3 +13,7 @@
 **Technologies**
 
 - Python, TensorFlow, Flask, HTML / CSS / Javascript
+
+**Délai**
+
+- 12 semaines
