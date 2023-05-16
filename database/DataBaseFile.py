@@ -1,9 +1,10 @@
 import json
+
 import os
 from abc import ABC
 from datetime import datetime
 from dateutil.parser import parse
-
+from bson import ObjectId
 from pymongo import MongoClient
 import gridfs
 import bcrypt
@@ -12,8 +13,16 @@ from database.DataBase import DataBase
 
 
 class DataBaseFile(DataBase):
+    """
+    Classe qui gère la collection dédier aux fichiers
+
+    """
 
     def __init__(self):
+        """
+        Constructeur qui crée un objet DataBaseFile, crée les collections "uploads" et "increased"
+
+        """
         super().__init__()
         self.db_names = self.client.list_database_names()
         if "uploads" not in self.db_names:
@@ -24,6 +33,18 @@ class DataBaseFile(DataBase):
         self.db_increased = self.client["increased"]
 
     def upload_file(self, path, userID, folder=False):
+        """
+        Méthode permettant d'insérer un fichier/dossier uploadé par l'utilisateur vers la base de données
+
+        :param path: le chemin complet menant au fichier
+        :type path: str
+        :param userID: l'ID de l'utilisateur
+        :type userID: str
+        :param folder: Vérifie s'il s'agit d'un dossier ou d'un fichier
+        :type folder: bool
+
+
+        """
 
         user_collection = self.db_uploads[userID]
         filename = path.rsplit("/", 1)[1]
@@ -37,24 +58,44 @@ class DataBaseFile(DataBase):
             file = {"filename": filename, "path": path, "date": datetime.now()}
             user_collection.insert_one(file)
 
-    def increased_file(self, path, userID, folder=False):
+    def increased_file(self, path, userID):
+        """
+        Méthode permettant d'insérer un fichier/dossier après augmentation dans la base de données
 
+        :param path: le chemin complet menant au fichier
+        :type path: str
+        :param userID: l'ID de l'utilisateur
+        :type userID: str
+
+
+        """
         user_collection = self.db_increased[userID]
         # print everything in the collection
 
-        filename = path
-        path = "./increased_data/" + userID + "/" + path
+        filename = path.rsplit("/",1)[1]
+        file_path = path.rsplit("/",1)[0]
+        foldername = file_path.rsplit("/",1)[1]
+
+
+
         os.makedirs("./increased_data/" + userID, exist_ok=True)
         # Insérer un fichier dans la collection
-        if folder:
-            folder = {"foldername": filename, "path": path, "date": datetime.now()}
-            user_collection.insert_one(folder)
-        else:
-            path = path[:-4]
-            file = {"filename": filename, "path": path, "date": datetime.now()}
-            user_collection.insert_one(file)
+        folder = {"foldername": foldername, "path": file_path, "date": datetime.now()}
+        user_collection.insert_one(folder)
 
     def delete_upload_file(self, filename, user_id, folder=False):
+        """
+        Supprime un fichier/dossier uploadé par l'utilisateur dans la base de données
+
+        :param filename: le fichier ciblé
+        :type filename: str
+        :param userID: l'ID de l'utilisateur
+        :type userID: str
+        :param folder: Vérifie s'il s'agit d'un dossier ou d'un fichier
+        :type folder: bool
+
+
+        """
         if folder:
             print("Suppression du dossier : ", filename, " de la base de données")
             user_collection = self.db_uploads[user_id]
@@ -65,24 +106,40 @@ class DataBaseFile(DataBase):
             user_collection = self.db_uploads[user_id]
             user_collection.delete_one({"filename": filename})
 
-    def delete_increased_file(self, filename, user_id, folder=False):
+    def delete_increased_file(self, filename, user_id):
+        """
+        Supprime un fichier/dossier augmenté dans la base de données
 
-        if folder:
-            print("Suppression du dossier : ", filename, " de la base de données")
-            user_collection = self.db_increased[user_id]
-            user_collection.delete_one({"foldername": filename})
+        :param filename: le fichier ciblé
+        :type filename: str
+        :param userID: l'ID de l'utilisateur
+        :type userID: str
 
-        else:
-            print("Suppression du fichier : ", filename, " de la base de données")
-            user_collection = self.db_increased[user_id]
-            user_collection.delete_one({"filename": filename})
+        """
+
+        print("Suppression du dossier : ", filename, " de la base de données")
+        user_collection = self.db_increased[user_id]
+        user_collection.delete_one({"foldername": filename})
 
     def reset_DB(self):
+        """
+        Supprime tous les fichiers de la base de données
+
+        """
         self.collection_Uploads.files.drop()
         self.collection_Uploads.chunks.drop()
-        # supprimer tous les fichiers de la base de données
+
 
     def getUploadedFiles(self, user_id):
+        """
+        Récupérer tous les fichiers uploadés par l'utilisateur spécifié
+
+        :param user_id: l'ID de l'utilisateur
+        :type user_id: str
+        :return: Tous les fichiers uploadés appartenant à l'utilisateur ID (liste de dictionnaire)
+        :rtype: list
+
+        """
         uploads = self.db_uploads[user_id]
         uploaded_files = []
         for file_obj in uploads.find():
@@ -95,6 +152,15 @@ class DataBaseFile(DataBase):
         return uploaded_files
 
     def getUploadedFolders(self, user_id):
+        """
+        Récupérer tous les dossiers uploadés par l'utilisateur spécifié
+
+        :param user_id: l'ID de l'utilisateur
+        :type user_id: str
+        :return: Tous les dossiers uploadés appartenant à l'utilisateur ID
+        :rtype: list
+
+        """
         uploads = self.db_uploads[user_id]
         uploaded_folders = []
         for folder_obj in uploads.find():
@@ -106,6 +172,15 @@ class DataBaseFile(DataBase):
         return uploaded_folders
 
     def getIncreasedFiles(self, user_id):
+        """
+        Récupérer tous les fichiers augmentés par l'utilisateur spécifié
+
+        :param user_id: l'ID de l'utilisateur
+        :type user_id: str
+        :return: Tous les fichiers augmentés appartenant à l'utilisateur ID
+        :rtype: list
+
+        """
         increase = self.db_increased[user_id]
         increased_files = []
         for file_obj in increase.find():
@@ -117,6 +192,15 @@ class DataBaseFile(DataBase):
         return increased_files
 
     def getIncreasedFolders(self, user_id):
+        """
+        Récupérer tous les dossiers augmentés par l'utilisateur spécifié
+
+        :param user_id: l'ID de l'utilisateur
+        :type user_id: str
+        :return: Tous les dossiers augmentés appartenant à l'utilisateur ID
+        :rtype: list
+
+        """
         increase = self.db_increased[user_id]
         increased_folders = []
         for folder_obj in increase.find():

@@ -1,7 +1,8 @@
 import json
+
 import os
 from abc import ABC
-
+from bson import ObjectId
 from pymongo import MongoClient
 import gridfs
 import bcrypt
@@ -10,8 +11,18 @@ from database.DataBase import DataBase
 
 
 class DataBaseUser(DataBase):
+    """
+    Classe qui gère les utilisateurs et leurs infos dans la base de données
+    """
 
-    def __init__(self,db_name):
+    def __init__(self, db_name):
+        """
+        Constructeur de la classe DataBaseUser
+
+        :param db_name: nom de la base de donnée
+        :type db_name: str
+
+        """
         super().__init__()
         self.db_names = self.client.list_database_names()
         if "user" not in self.db_names:
@@ -22,8 +33,16 @@ class DataBaseUser(DataBase):
         if "logs" not in self.db.list_collection_names():
             self.db.create_collection("logs")
 
-
     def add_user(self, json_logs):
+        """
+        Méthode permettant d'ajouter un utilisateur et ses informations dans la base de données
+
+        :param json_logs: fichier json qui contient ses informations
+        :type json_logs: str
+        :return: l'ID de l'utilisateur nouvellement crée qui est un objet bson.objectid.ObjectId
+        :rtype: bson.objectid.ObjectId
+
+        """
         # json_logs est le chemin vers le fichier JSON contenant les informations de l'utilisateur
         # Chargement du fichier JSON
         with open(json_logs) as f:
@@ -55,6 +74,10 @@ class DataBaseUser(DataBase):
             return user_ID
 
     def afficher_utilisateurs(self):
+        """
+        Affiche sur la console les utilisateurs présents dans la base de donnée
+
+        """
         # Récupération de tous les documents de la collection
         utilisateurs = self.collection_logs.find()
         # Affichage des informations pour chaque utilisateur
@@ -65,9 +88,18 @@ class DataBaseUser(DataBase):
             print(f"Salt : {utilisateur['salt']}")
             print("------------------------------")
 
-    # vérifier les informations d'identification de l'utilisateur
     def verif_user(self, email, password):
+        """
+        Vérifie les informations d'identification de l'utilisateur
 
+        :param email: l'email de l'utilisateur
+        :type email: str
+        :param password: le mot de passe de l'utilisateur
+        :type password: str
+        :return: Retourne False si la vérification a échoué
+        :rtype: bool
+
+        """
         utilisateur = self.collection_logs.find_one({'email': email})
         if utilisateur:
             # vérifier si le mot de passe entré correspond au mot de passe stocké pour l'utilisateur
@@ -84,19 +116,42 @@ class DataBaseUser(DataBase):
         return False
 
     def mailExist(self, mail):
+        """
+        Vérifie si un mail est déjà présent dans la base de donnée ou non
+
+        :param mail: l'email de l'utilisateur
+        :type mail: str
+        :return: Retourne True si l'email existe déjà False sinon
+        :rtype: bool
+
+        """
         if self.collection_logs.find_one({"email": mail}):  # si l'email existe déjà
             print("L'adresse e-mail est déjà utilisée")
             return True
         else:
             return False
 
+    def getSalt(self, email):
+        """
+        Récupère le "Salt" qui est une valeur aléatoire unique utilisée en cryptographie
 
-    def getSalt(self,email):
+        :param email: l'email de l'utilisateur
+        :type email: str
+        :return: Renvoie le "Salt" de l'utilisateur si celui-ci est présent dans la base de données
+        :rtype: Union[str,None]
+
+        """
         utilisateur = self.collection_logs.find_one({'email': email})
         if utilisateur:
             return utilisateur['salt']
         return None
 
     def get_collection_logs(self):
-        return self.collection_logs
+        """
+        Renvoie la collection "logs" qui comporte les informations sur les utilisateurs
 
+        :return: un objet pymongo.collection.Collection représentant la collection "logs"
+        :rtype: pymongo.collection.Collection
+
+        """
+        return self.collection_logs
