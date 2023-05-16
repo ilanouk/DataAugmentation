@@ -18,6 +18,7 @@ def rotation(img, angle=0, coord=None, intensity=50):
     :type intensity: int
     :return: L'image pivotée.
     :rtype: numpy.ndarray
+
     """
     y, x = [i / 2 for i in img.shape[:-1]] if coord is None else coord[::-1]
 
@@ -44,6 +45,7 @@ def zoom(img, zoom=1, coord=None, intensity=50):
     :type intensity: int
     :return: L'image zoomée.
     :rtype: numpy.ndarray
+
     """
     y, x = [i / 2 for i in img.shape[:-1]] if coord is None else coord[::-1]
 
@@ -70,6 +72,7 @@ def translate(img, x, y, intensity=50):
     :type intensity: int
     :return: L'image translatée.
     :rtype: numpy.ndarray
+
     """
     intensity = max(intensity, 0)
     x = int(x * intensity / 100)
@@ -92,6 +95,7 @@ def mirror(img, direction):
     :type direction: int
     :return: L'image symétrisée.
     :rtype: numpy.ndarray
+
     """
     return cv2.flip(img, direction)
 
@@ -111,6 +115,7 @@ def add_gaussian_noise(image, mean=0, stddev=10, intensity=50):
 
     :return: L'image avec le bruit gaussien ajouté.
     :rtype: numpy.ndarray
+
     """
 
     # Calcul de la moyenne et de l'écart-type en fonction de l'intensité
@@ -141,6 +146,7 @@ def blur(image, kernel_size=5, sigma=0, intensity=50):
 
     :return: L'image avec le flou gaussien appliqué.
     :rtype: numpy.ndarray
+
     """
     kernel_size = int(kernel_size * intensity / 100)
     sigma = int(sigma * intensity / 100)
@@ -169,6 +175,7 @@ def distortion(image, k1=2, k2=-0.6, p1=0.006, p2=-0.003, intensity=50):
     :type p2: float
     :return: L'image distordue.
     :rtype: numpy.ndarray
+
     """
 
     k1 = k1 * intensity / 100
@@ -214,6 +221,7 @@ def luminosity(image, beta, intensity=50):
     :type beta: float
     :return: L'image modifiée.
     :rtype: numpy.ndarray
+
     """
 
     beta = int(beta * intensity / 100)
@@ -239,6 +247,7 @@ def contrast(image, alpha, intensity=50):
     :type beta: float
     :return: L'image modifiée.
     :rtype: numpy.ndarray
+
     """
     alpha = alpha * intensity / 100
 
@@ -263,6 +272,7 @@ def darkness(image, intensity=50):
     :type beta: float
     :return: L'image modifiée.
     :rtype: numpy.ndarray
+
     """
 
     alpha = 1.08 - intensity / 100
@@ -286,6 +296,7 @@ def save_img(img, filename, name, output_folder):
     :type output_folder: str
 
     :return: None
+
     """
 
     # Sauvegarder la nouvelle image dans le même dossier avec un nouveau nom
